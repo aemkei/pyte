@@ -27,7 +27,7 @@ To register a klass with your layout only include this single statement:
 
 Content of my/sample/Application.js:
 
-  Class.inlcude("my.sample.Control");
+  Class.include("my.sample.Control");
 
   my.fancy.Klass = Class.create({
     initialize: function(){
