@@ -1,0 +1,45 @@
+Pyte - JavaScript Dependency Management and Deployment Tasks
+============================================================
+
+Pyte is a JavaScript dependency management and deployment library.
+
+Features
+========
+
+JavaScript class includes:
+ - Synchronous script loading
+ - On the fly dependencies
+ - Application pattern
+ - Light and easy class includes
+
+Development and production mode:
+ - Concatenation of depending files
+ - Deployment tasks and postprocessor
+ - Minification and obfuscating (Using YUI Compressor)
+
+Example JavaScript Usage
+========================
+
+To register a klass with your layout only include this single statement:
+
+  new Application("my.sample.Application");
+
+
+Content of my/sample/Application.js:
+
+  Class.inlcude("my.sample.Control");
+
+  my.fancy.Klass = Class.create({
+    initialize: function(){
+      this.control = new my.sample.Control();
+    }
+  });
+
+
+About this project
+==================
+
+This library has been developed at Ubilabs (http://www.ubilabs.net)
+
+Author: "Martin Kleppe" <kleppe@ubilabs.net>
+Released under the MIT license
