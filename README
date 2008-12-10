@@ -3,6 +3,7 @@ Pyte - JavaScript Dependency Management and Deployment Tasks
 
 Pyte is a JavaScript dependency management and deployment library.
 
+
 Features
 ========
 
@@ -17,23 +18,72 @@ Development and production mode:
  - Deployment tasks and postprocessor
  - Minification and obfuscating (Using YUI Compressor)
 
+
 Example JavaScript Usage
 ========================
 
-To register a klass with your layout only include this single statement:
+To register an application class with your layout only include this single statement (this will be automatically done by Pyte if you use the Rails plugin):
 
-  new Application("my.sample.Application");
+  new Application("my.app.SampleApplication");
 
 
-Content of my/sample/Application.js:
+Content of my/app/Explore.js:
 
-  Class.include("my.sample.Control");
+  Class.include(
+    "my.app.Abstract"
+    "my.sample.Control"
+  );
 
-  my.fancy.Klass = Class.create({
+  // inherits from my.app.Abstract
+  my.app.Explore = Class.create(my.app.Abstract, {
     initialize: function(){
       this.control = new my.sample.Control();
     }
   });
+
+
+Example Rail Usage
+==================
+
+Simply add :pyte to your javascript_include_tag:
+
+  <%= javascript_include_tag :defaults, :pyte, :cache => true %>
+
+In environment.rb you'll have to set the main application folder. All files in this folder will be analysed and all depencencies are merged into a single compressed file:
+
+  Pyte::Settings.application_path = "my/app/"
+  
+  
+To specify a custom application class, add @pyte_app to your controller. Otherwise "Abstract" will be used.
+
+  class MyController < ApplicationController
+
+    def index
+      @pyte_app = "Explore"
+      # hack your explore stuff
+    end
+  
+    def search
+      @pyte_app = "Search"
+      # hack your search stuff
+    end
+  end
+
+
+Deployment Process
+==================
+
+Once you deploy your application, all JavaScript sources will be analysed and three single files are generated:
+
+  - all.uncompressed.js   # Single merged file with comments and whitespace
+  - all.js                # YUI compressed file
+  - all.js.gz             # Gzipped version of compressed file
+
+
+Development Mode
+================
+
+In development mode, all required classes are loaded and evaluated by the pyte.js library via synchronous AJAX calls.
 
 
 About this project

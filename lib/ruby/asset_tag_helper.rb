@@ -42,7 +42,7 @@ module ActionView
           tags << expand_javascript_sources(sources).collect { |source| javascript_src_tag(source, options) }.join("\n")
         end
         if sources.include? :pyte
-          app_tag = javascript_tag "new Application('#{Pyte::Settings.namespace}.#{@js_class || 'Abstract'}');"
+          app_tag = javascript_tag "new Application('#{Pyte::Settings.namespace}.#{@pyte_app || 'Abstract'}');"
           tags << app_tag
         end
         tags
